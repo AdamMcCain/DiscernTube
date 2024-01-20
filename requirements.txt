@@ -1,0 +1,2 @@
+pytube==15.0.0  # https://pypi.org/project/pytube/
+openai==1.8.0  # https://pypi.org/project/openai/
