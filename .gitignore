@@ -1,5 +1,4 @@
 /.DS_Store
 __pycache__
-app_secrets.py
 *.mp3
 *.mp4
