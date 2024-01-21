@@ -1,4 +1,4 @@
-# DiscernTube, v0.92.1 (Beta), 1/20/2024
+# DiscernTube, v0.93 (Beta), 1/21/2024
 # Takes in a YouTube URL via command line argument and speaks a summary of the video's spoken content
 # Can also be used to print / send summary to stdout instead of speaking it (enables piping)
 # Example usage: python3 summarize.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -84,18 +84,29 @@ def do_summary(user_input):
             print(e)
             time.sleep(5)
 
-# Modified function to return file path
+# Function to download audio from YouTube video
 def download_audio(youtube_url, output_path):
-    """Download audio from a YouTube video using pytube."""
+    """Download audio from a YouTube video using pytube.
+    Tries to download in WEBM format, defaults to the first available audio format if WEBM is not available."""
     try:
         yt = YouTube(youtube_url)
-        audio_stream = yt.streams.filter(only_audio=True).first()
+        # First, try to get WEBM audio format
+        audio_stream = yt.streams.filter(only_audio=True, file_extension='webm').first()
+        
+        # If no WEBM audio stream is available, default to the first available audio stream
+        if not audio_stream:
+            audio_stream = yt.streams.filter(only_audio=True).first()
+            if not audio_stream:
+                print("No audio stream available.")
+                return None
+
         return audio_stream.download(output_path=output_path)
     except Exception as e:
         print('pytube Error: ', end='')
         print(e)
         return None
 
+# Function to convert audio to text
 def make_transcription(audio_path):
     """Convert audio to text using OpenAI Whisper API."""
     try:
@@ -110,6 +121,7 @@ def make_transcription(audio_path):
         print(e)
         return None
 
+# Function to speak text summary
 def speak_text(text):
     """Convert text to speech using OpenAI TTS API or output to stdout."""
     if SPEAK_SUMMARY:
@@ -136,7 +148,7 @@ def speak_text(text):
             print('TTS API Error: ', end='')
             print(e)
     else:
-        # If SPEAK_SUMMARY is False, output the text to stdout
+        # If SPEAK_SUMMARY is False, output sumary as text
         print(text)
 
 
@@ -157,7 +169,6 @@ if __name__ == "__main__":
     if not transcript:
         sys.exit(1)
 
-    # Delete the downloaded audio file after transcription
     if audio_file_path != 'transcript_summary.mp3':
         delete_file(audio_file_path)
 
@@ -168,4 +179,4 @@ if __name__ == "__main__":
     if SPEAK_SUMMARY:
         speak_text(gpt_response)
     else:
-        print(gpt_response)  # Output the summary to stdout
+        print(gpt_response)

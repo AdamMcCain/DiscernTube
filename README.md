@@ -46,3 +46,6 @@ python3 DiscernTube.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" | cat > vid
 
 ## Known Issues
 25 MB max file size (typically correlates to about 1 hour long videos)
+
+## Change Log
+v0.93 - Now defaults to WEBM audio format

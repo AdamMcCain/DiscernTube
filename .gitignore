@@ -3,3 +3,4 @@ __pycache__
 app_secrets.py
 *.mp3
 *.mp4
+*.webm
