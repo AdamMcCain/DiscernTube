@@ -1,4 +1,4 @@
-# DiscernTube, v0.91 (Beta), 1/20/2024
+# DiscernTube, v0.92.1 (Beta), 1/20/2024
 # Takes in a YouTube URL via command line argument and speaks a summary of the video's spoken content
 # Can also be used to print / send summary to stdout instead of speaking it (enables piping)
 # Example usage: python3 summarize.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -149,6 +149,7 @@ if __name__ == "__main__":
     output_path = '.'
 
     audio_file_path = download_audio(youtube_url, output_path)
+    print('Analyzing video...')
     if not audio_file_path:
         sys.exit(1)
 
@@ -159,7 +160,6 @@ if __name__ == "__main__":
     # Delete the downloaded audio file after transcription
     if audio_file_path != 'transcript_summary.mp3':
         delete_file(audio_file_path)
-
 
     gpt_response = do_summary(transcript)
     if not gpt_response:

@@ -43,3 +43,6 @@ If SPEAK_SUMMARY is set to False, the output can be piped into other commands li
 python3 DiscernTube.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" | cat > video_summary.txt
 
 """
+
+## Known Issues
+25 MB max file size (typically correlates to about 1 hour long videos)
