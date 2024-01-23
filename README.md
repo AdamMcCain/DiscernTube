@@ -49,3 +49,5 @@ python3 DiscernTube.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" | cat > vid
 
 ## Change Log
 v0.93 - Now defaults to WEBM audio format
+
+v0.94 - More detailed output

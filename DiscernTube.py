@@ -1,4 +1,4 @@
-# DiscernTube, v0.93 (Beta), 1/21/2024
+# DiscernTube, v0.94 (Beta), 1/22/2024
 # Takes in a YouTube URL via command line argument and speaks a summary of the video's spoken content
 # Can also be used to print / send summary to stdout instead of speaking it (enables piping)
 # Example usage: python3 summarize.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

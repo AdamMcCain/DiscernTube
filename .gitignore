@@ -1,6 +1,7 @@
 /.DS_Store
 __pycache__
 app_secrets.py
+scratch.py
 *.mp3
 *.mp4
 *.webm
